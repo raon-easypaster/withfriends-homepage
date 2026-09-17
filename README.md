@@ -89,6 +89,10 @@ gallery: [
 메인 화면의 큰 사진은 `assets/images/hero.jpg` 를 넣은 뒤
 `index.html` 의 `assets/images/placeholder-hero.svg` 부분을 바꾸면 됩니다.
 
+> **조직도**: `about.html` 의 `#org` 영역에 있습니다. 총회·이사장·감사·이사회·사무국은 HTML에 직접 적혀 있고,
+> 사무국 아래 운영시설 5개소는 `data/centers.js` 에서 **자동으로 그려집니다**.
+> 센터를 더하거나 빼면 조직도에도 바로 반영되므로 따로 손볼 필요가 없습니다.
+
 > **사진 게시 전 확인**: 아동 사진은 보호자 게시 동의를 받은 것만 사용하세요.
 > 사진 설명(alt)에 이름·학교 등 개인을 특정할 수 있는 내용을 쓰지 마세요.
 
@@ -143,7 +147,6 @@ gallery: [
 | 2020년 이후 연혁 | `data/site.js` → `WF_HISTORY` |
 | 이용 아동 수 · 후원자 수 · 프로그램 수 | `data/site.js` → `WF_STATS` (값이 `null` 이면 화면에 안 보임) |
 | 공식 미션·비전 선언문 | `about.html` → `#vision` 영역 |
-| 다함께돌봄센터의 조직도상 위치 | `about.html` → `#org` 영역 |
 | 센터 이용 절차·서류, 자원봉사 모집 안내 | `centers.html` → `#guide`, `support.html` → `#volunteer` |
 | 개인정보처리방침 · 이용약관 전문 | `privacy.html`, `terms.html` |
 | SNS 주소 | `data/site.js` → `WF_ORG.sns` |

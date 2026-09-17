@@ -609,18 +609,77 @@ body.nav-open { overflow: hidden; }
 .timeline__year-head { font-size: var(--fs-h3); margin: 1.5rem 0 0.9rem; color: var(--c-green-deep); }
 .timeline__year-head:first-child { margin-top: 0; }
 
-/* 조직도 */
-.orgchart { display: grid; gap: 0.9rem; justify-items: center; text-align: center; }
+/* --- 조직도 ------------------------------------------------------------- */
+.orgchart { display: grid; justify-items: center; text-align: center; --org-line: #D8CCBC; }
+
+/* 마디 */
 .org-node {
-  background: var(--c-white); border: 2px solid var(--c-green); color: var(--c-green-deep);
-  border-radius: var(--r-pill); padding: 0.7rem 1.75rem; font-weight: 700; box-shadow: var(--sh-1);
-  min-width: 150px;
+  background: var(--c-white); border: 2px solid var(--c-line); color: var(--c-ink);
+  border-radius: var(--r-md); padding: 0.7rem 1.6rem; font-weight: 700;
+  box-shadow: var(--sh-1); min-width: 140px;
 }
-.org-node--top { background: var(--c-green); color: var(--c-white); }
-.org-row { display: flex; flex-wrap: wrap; gap: 0.75rem; justify-content: center; align-items: center; }
-.org-node--side { border-color: var(--c-line); color: var(--c-ink-70); min-width: 110px; font-size: var(--fs-sm); }
-.org-node--leaf { border-color: var(--c-coral); color: var(--c-coral-deep); font-size: var(--fs-sm); padding: 0.6rem 1.15rem; min-width: 0; }
-.org-line { width: 2px; height: 22px; background: var(--c-line); }
+.org-node--top   { background: var(--c-green); border-color: var(--c-green); color: var(--c-white); }
+.org-node--head  { border-color: var(--c-green); color: var(--c-green-deep); }
+.org-node--side  { font-size: var(--fs-sm); color: var(--c-ink-70); min-width: 92px; padding: 0.55rem 1.1rem; }
+
+/* 연결선 */
+.org-vline { width: 2px; height: 26px; background: var(--org-line); }
+.org-hline { width: clamp(16px, 4vw, 44px); height: 2px; background: var(--org-line); flex: none; }
+.org-exec  { display: flex; align-items: center; justify-content: center; }
+
+/* 사무국 아래 두 갈래 */
+.org-branch { position: relative; width: 100%; padding-top: 28px; display: grid;
+              grid-template-columns: repeat(2, minmax(0, 1fr)); gap: clamp(1rem, 3vw, 2.25rem); }
+.org-branch::before {
+  content: ""; position: absolute; top: 0; left: 25%; right: 25%;
+  height: 2px; background: var(--org-line);
+}
+.org-group { position: relative; }
+.org-group::before {
+  content: ""; position: absolute; top: -28px; left: 50%; margin-left: -1px;
+  width: 2px; height: 28px; background: var(--org-line);
+}
+.org-group__title {
+  display: block; border-radius: var(--r-pill); padding: 0.55rem 1.1rem;
+  font-weight: 700; font-size: var(--fs-sm);
+  background: var(--c-green-soft); border: 2px solid var(--c-green); color: var(--c-green-deep);
+}
+.org-group--dahamkke .org-group__title {
+  background: var(--c-sky-soft); border-color: #4E93BC; color: #1F5872;
+}
+.org-group__title .count { font-weight: 700; opacity: .75; margin-left: 0.3rem; }
+
+/* 센터 목록 — 가운데 세로선을 따라 이어집니다 */
+.org-leaf-list { position: relative; margin-top: 16px; padding-top: 16px; display: grid; gap: 0.6rem; }
+.org-leaf-list::before {
+  content: ""; position: absolute; top: 0; bottom: 22px; left: 50%; margin-left: -1px;
+  width: 2px; background: var(--org-line);
+}
+.org-leaf {
+  position: relative; display: block; background: var(--c-white);
+  border: 2px solid var(--c-line); border-radius: var(--r-md);
+  padding: 0.6rem 0.9rem; font-size: var(--fs-sm); font-weight: 700;
+  box-shadow: var(--sh-1); min-height: 44px;
+  transition: transform var(--dur) var(--ease), border-color var(--dur) var(--ease),
+              color var(--dur) var(--ease), box-shadow var(--dur) var(--ease);
+}
+a.org-leaf:hover { border-color: var(--c-coral); color: var(--c-coral-deep); transform: translateY(-2px); box-shadow: var(--sh-2); }
+.org-group--dahamkke a.org-leaf:hover { border-color: #4E93BC; color: #1F5872; }
+.org-leaf__note { display: block; font-weight: 400; font-size: var(--fs-xs); color: var(--c-ink-55); margin-top: 0.1rem; }
+.orgchart-caption { margin-top: 1.25rem; font-size: var(--fs-xs); color: var(--c-ink-55); text-align: center; }
+
+@media (max-width: 640px) {
+  .org-branch { grid-template-columns: minmax(0, 1fr); gap: 0; }
+  .org-branch::before { display: none; }
+  .org-group + .org-group { margin-top: 28px; }
+  .org-group::before { top: -28px; height: 28px; }
+  .org-node { min-width: 0; }
+  /* 총회·사무국처럼 혼자 놓이는 마디만 가로로 채웁니다 */
+  .orgchart > .org-node { width: 100%; max-width: 280px; }
+  /* 감사–이사장–이사회 줄은 글자가 끊기지 않게 둡니다 */
+  .org-exec .org-node { padding: 0.55rem 0.85rem; white-space: nowrap; }
+  .org-hline { width: 10px; }
+}
 
 /* 지도 */
 .map-frame { border-radius: var(--r-lg); overflow: hidden; box-shadow: var(--sh-2); border: 1px solid var(--c-line-soft); background: var(--c-white); }

@@ -157,35 +157,24 @@
       <div class="panel">
         <div class="orgchart">
           <div class="org-node org-node--top">총회</div>
-          <div class="org-line" aria-hidden="true"></div>
-          <div class="org-row">
-            <div class="org-node org-node--side">감사</div>
-            <div class="org-node">이사장</div>
-            <div class="org-node org-node--side">이사회</div>
+          <span class="org-vline" aria-hidden="true"></span>
+
+          <div class="org-exec">
+            <span class="org-node org-node--side">감사</span>
+            <span class="org-hline" aria-hidden="true"></span>
+            <span class="org-node org-node--head">이사장</span>
+            <span class="org-hline" aria-hidden="true"></span>
+            <span class="org-node org-node--side">이사회</span>
           </div>
-          <div class="org-line" aria-hidden="true"></div>
-          <div class="org-node">사무국</div>
-          <div class="org-line" aria-hidden="true"></div>
-          <div class="org-row">
-            <div class="org-node org-node--leaf">이웃사랑지역아동센터</div>
-            <div class="org-node org-node--leaf">소사지역아동센터</div>
-            <div class="org-node org-node--leaf">민들레지역아동센터</div>
-          </div>
+
+          <span class="org-vline" aria-hidden="true"></span>
+          <div class="org-node org-node--head">사무국</div>
+
+          <!-- 운영시설 두 갈래는 data/centers.js 에서 자동으로 그려집니다. -->
+          <div class="org-branch" id="org-branch"></div>
         </div>
 
-        <div class="notice-box" style="margin-top:1.75rem">
-          <span class="notice-box__icon" aria-hidden="true">!</span>
-          <span>
-            위 조직도는 기존 홈페이지에 게시된 조직도(총회 · 이사장 · 감사 · 이사회 · 사무국 · 지역아동센터 3개소)를 그대로 옮긴 것입니다.
-            <strong>새로 운영하는 다함께돌봄센터 2개소의 조직상 위치는 확인되지 않아 아직 넣지 않았습니다.</strong>
-            확인 후 <code>about.html</code> 의 <code>#org</code> 영역에 추가해 주세요.
-          </span>
-        </div>
-
-        <details style="margin-top:1.25rem">
-          <summary style="cursor:pointer;font-weight:700;min-height:44px;display:flex;align-items:center">기존 홈페이지 조직도 이미지 보기</summary>
-          <img src="assets/images/org-chart-original.jpg" alt="기존 홈페이지에 게시된 위드프렌즈 조직도. 총회 아래 이사장, 이사장 좌우에 감사와 이사회, 이사장 아래 사무국, 사무국 아래 이웃사랑·소사·민들레 지역아동센터가 있습니다." style="margin-top:1rem;border-radius:var(--r-md);border:1px solid var(--c-line-soft)">
-        </details>
+        <p class="orgchart-caption">센터 이름을 누르면 해당 센터 안내로 이동합니다.</p>
       </div>
     </div>
   </section>
@@ -237,6 +226,23 @@ window.wfPageInit = function () {
             '</p><p class="timeline__text">' + h.text + "</p></div>";
   });
   document.getElementById("timeline").innerHTML = html;
+
+  /* 조직도 — 사무국 아래 운영시설 두 갈래를 data/centers.js 에서 그립니다. */
+  var branch = document.getElementById("org-branch");
+  branch.innerHTML = WF_CENTER_TYPES
+    .filter(function (t) { return t.id !== "all"; })
+    .map(function (t) {
+      var list = WF_CENTERS.filter(function (c) { return c.type === t.id; });
+      var leaves = list.map(function (c) {
+        return '<li><a class="org-leaf" href="center-detail.html?id=' + encodeURIComponent(c.id) + '">' +
+               c.name + "</a></li>";
+      }).join("");
+      return '<div class="org-group org-group--' + t.id + '">' +
+               '<span class="org-group__title">' + t.label +
+                 '<span class="count">' + list.length + "개소</span></span>" +
+               '<ul class="org-leaf-list">' + leaves + "</ul>" +
+             "</div>";
+    }).join("");
 
   /* 오시는 길 */
   document.getElementById("org-map").src = WF_ORG.mapEmbedUrl;
