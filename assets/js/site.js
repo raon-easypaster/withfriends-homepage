@@ -358,6 +358,11 @@
         '<dl class="center-card__meta">' +
           '<div><dt class="k">이용 대상</dt><dd class="v">' + orTBD(c.target) + "</dd></div>" +
           '<div><dt class="k">운영시간</dt><dd class="v">' + hours + "</dd></div>" +
+          '<div><dt class="k">이용료</dt><dd class="v">' +
+            (hasList(c.fee)
+              ? "<ul>" + c.fee.map(function (f) { return "<li>" + esc(f) + "</li>"; }).join("") + "</ul>"
+              : '<span class="tbd"></span>') +
+          "</dd></div>" +
           '<div><dt class="k">주소</dt><dd class="v">' + orTBD(c.address) + "</dd></div>" +
           '<div><dt class="k">전화</dt><dd class="v">' +
             (has(c.tel) ? '<a href="tel:' + esc(c.tel.replace(/[^0-9+]/g, "")) + '">' + esc(c.tel) + "</a>" : '<span class="tbd"></span>') +

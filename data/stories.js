@@ -26,7 +26,7 @@
    true  : 아래 "[샘플]" 로 시작하는 예시 글이 화면에 보입니다. (디자인 확인용)
    false : 샘플이 모두 숨겨지고 실제 글만 보입니다. ★실제 운영 시 false 로 바꾸세요.
    -------------------------------------------------------------------------- */
-var WF_SHOW_SAMPLE_POSTS = true;
+var WF_SHOW_SAMPLE_POSTS = false;
 
 var WF_POST_CATEGORIES = [
   { id: "all",     label: "전체" },
@@ -37,6 +37,52 @@ var WF_POST_CATEGORIES = [
 ];
 
 var WF_POSTS = [
+
+  /* ====================================================================
+     부천시다함께돌봄센터(힐스테이트소사역) 2026년 상반기 활동
+     출처: 센터 소식지 2호 [2026년 상반기]
+     ※ 사진은 보호자 게시 동의를 받은 것만 image 항목에 넣어 주세요.
+     ==================================================================== */
+  { category: "program", center: "부천시다함께돌봄센터 힐스테이트소사역", tags: ["문화체험"],
+    title: "직업체험학습 ‘키자니아’",
+    summary: "다양한 직업을 직접 체험하며 아이들이 자신의 관심과 적성을 찾아보는 시간을 가졌습니다.",
+    date: "2026-05-14", image: "", imageAlt: "", url: "https://blog.naver.com/hillsodadol" },
+
+  { category: "program", center: "부천시다함께돌봄센터 힐스테이트소사역", tags: ["지역협력", "환경"],
+    title: "소사본네트워크 「함께GREEN소사」 숲체험",
+    summary: "지역 기관들과 함께하는 환경 프로그램으로, 숲에서 자연을 직접 만나고 배웠습니다.",
+    date: "2026-06-17", image: "", imageAlt: "", url: "https://blog.naver.com/hillsodadol" },
+
+  { category: "program", center: "부천시다함께돌봄센터 힐스테이트소사역", tags: ["가족프로그램"],
+    title: "법인 산하기관 합동 가족정서프로그램 ‘쿠킹클래스’",
+    summary: "위드프렌즈 산하 기관이 함께 모여 가족이 요리하며 마음을 나누는 시간을 보냈습니다.",
+    date: "2026-04-18", image: "", imageAlt: "", url: "https://blog.naver.com/hillsodadol" },
+
+  { category: "program", center: "부천시다함께돌봄센터 힐스테이트소사역", tags: ["문화체험"],
+    title: "웅진 ‘아쿠아리움’ 현장체험학습",
+    summary: "교실 밖에서 만나는 생생한 배움의 시간, 아이들이 바다 생물을 직접 관찰했습니다.",
+    date: "2026-02-06", image: "", imageAlt: "", url: "https://blog.naver.com/hillsodadol" },
+
+  { category: "center", center: "부천시다함께돌봄센터 힐스테이트소사역", tags: ["전통놀이"],
+    title: "설 맞이 전통놀이 한마당",
+    summary: "설을 앞두고 전통놀이를 함께 즐기며 명절의 의미를 나눴습니다.",
+    date: "2026-02-10", image: "", imageAlt: "", url: "https://blog.naver.com/hillsodadol" },
+
+  { category: "program", center: "부천시다함께돌봄센터 힐스테이트소사역", tags: ["안전교육"],
+    title: "어린이교통나라 ‘찾아가는 교통안전교육’",
+    summary: "전문 강사가 센터를 방문해 아이들의 눈높이에 맞춘 교통안전 교육을 진행했습니다.",
+    date: "2026-01-22", image: "", imageAlt: "", url: "https://blog.naver.com/hillsodadol" },
+
+  { category: "center", center: "부천시다함께돌봄센터 힐스테이트소사역", tags: ["돌봄"],
+    title: "학교 재량휴일 긴급 돌봄 운영",
+    summary: "학교가 쉬는 날에도 아이들이 안전하게 머물 수 있도록 긴급 돌봄을 운영했습니다.",
+    date: "2026-05-04", image: "", imageAlt: "", url: "" },
+
+  { category: "press", center: "부천시다함께돌봄센터 힐스테이트소사역", tags: ["소식지"],
+    title: "센터 소식지 2호 [2026년 상반기]",
+    summary: "상반기 프로그램과 활동, 이용료 수입·지출 현황을 담은 소식지를 발행했습니다.",
+    date: "2026-07-01", image: "", imageAlt: "",
+    url: "https://boatneck-thrill-25d.notion.site/2-2026-834a99c7e785828385ac01abdbe337ec" },
 
   /* ====================================================================
      아래는 기존 홈페이지 공지사항 게시판에서 그대로 옮겨 온 실제 글입니다.

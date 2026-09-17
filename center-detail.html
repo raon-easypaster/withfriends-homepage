@@ -18,7 +18,7 @@
 <link rel="icon" href="assets/images/favicon.ico" sizes="any">
 <link rel="preconnect" href="https://cdn.jsdelivr.net" crossorigin>
 <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.9/dist/web/variable/pretendardvariable-dynamic-subset.min.css">
-<link rel="stylesheet" href="assets/css/style.css?v=20260917c">
+<link rel="stylesheet" href="assets/css/style.css?v=20260917d">
 </head>
 
 <body data-page="centers">
@@ -33,9 +33,9 @@
 
 <footer class="site-footer" id="site-footer"></footer>
 
-<script src="data/site.js?v=20260917c"></script>
-<script src="data/centers.js?v=20260917c"></script>
-<script src="data/stories.js?v=20260917c"></script>
+<script src="data/site.js?v=20260917d"></script>
+<script src="data/centers.js?v=20260917d"></script>
+<script src="data/stories.js?v=20260917d"></script>
 <script>
 window.wfPageInit = function () {
   var root = document.getElementById("detail-root");
@@ -107,13 +107,71 @@ window.wfPageInit = function () {
     ? '<a href="tel:' + esc(c.tel.replace(/[^0-9+]/g, "")) + '">' + esc(c.tel) + "</a>"
     : '<span class="tbd"></span>';
 
-  var programsHtml = (c.programs && c.programs.length)
-    ? '<div class="grid grid--2">' + c.programs.map(function (p) {
-        return '<div class="value-item"><h3>' + esc(p.name) + "</h3>" +
-               (has(p.desc) ? "<p>" + esc(p.desc) + "</p>" : "") + "</div>";
-      }).join("") + "</div>"
-    : '<div class="empty-state"><strong>주요 프로그램 정보 준비 중</strong>' +
+  var programsHtml;
+  if (c.programGroups && c.programGroups.length) {
+    programsHtml = '<div class="grid grid--2">' + c.programGroups.map(function (g) {
+      return '<div class="prog-group"><h3 class="prog-group__title">' + esc(g.group) + "</h3>" +
+             '<ul class="prog-list">' + g.items.map(function (it) {
+               return "<li>" + esc(it) + "</li>";
+             }).join("") + "</ul></div>";
+    }).join("") + "</div>";
+  } else if (c.programs && c.programs.length) {
+    programsHtml = '<div class="grid grid--2">' + c.programs.map(function (p) {
+      return '<div class="value-item"><h3>' + esc(p.name) + "</h3>" +
+             (has(p.desc) ? "<p>" + esc(p.desc) + "</p>" : "") + "</div>";
+    }).join("") + "</div>";
+  } else {
+    programsHtml = '<div class="empty-state"><strong>주요 프로그램 정보 준비 중</strong>' +
       "<p>운영 중인 프로그램 안내를 정리하고 있습니다. 자세한 내용은 센터로 문의해 주세요.</p></div>";
+  }
+
+  /* 이용료 */
+  var feeHtml = (c.fee && c.fee.length)
+    ? "<ul>" + c.fee.map(function (f) { return "<li>" + esc(f) + "</li>"; }).join("") + "</ul>"
+    : '<span class="tbd"></span>';
+
+  /* 이용 대상 (보충 설명 포함) */
+  var targetHtml = has(c.target)
+    ? esc(c.target) + (has(c.targetNote) ? '<p class="ext-note">' + esc(c.targetNote) + "</p>" : "")
+    : '<span class="tbd"></span>';
+
+  /* 센터 블로그 등 외부 링크 */
+  var linksHtml = (c.links && c.links.length)
+    ? c.links.map(function (l) {
+        return '<a class="btn btn--outline btn--sm" href="' + esc(l.url) +
+               '" target="_blank" rel="noopener noreferrer">' + esc(l.label) +
+               ' <span aria-hidden="true">↗</span><span class="sr-only">(새 창)</span></a>';
+      }).join("")
+    : "";
+
+  /* 신규 이용 신청 안내 */
+  var ap = c.apply || {};
+  var applyHtml;
+  if (has(ap.note) || (ap.steps && ap.steps.length)) {
+    applyHtml = '<div class="panel">' +
+      (has(ap.note) ? '<p class="prose prose--lead" style="color:var(--c-ink-70)">' + esc(ap.note) + "</p>" : "") +
+      ((ap.steps && ap.steps.length)
+        ? '<ol style="display:grid;gap:1rem;margin-top:1.25rem">' + ap.steps.map(function (st, i) {
+            return '<li class="support-step"><span class="support-step__num" aria-hidden="true">' + (i + 1) +
+                   '</span><div><p style="font-weight:700">' + esc(st) + "</p></div></li>";
+          }).join("") + "</ol>"
+        : "") +
+      '<div class="card__foot" style="margin-top:1.5rem">' +
+        (has(ap.url)
+          ? '<a class="btn btn--primary" href="' + esc(ap.url) + '" target="_blank" rel="noopener noreferrer">' +
+            esc(ap.urlLabel || "신청서 작성하기") + ' <span aria-hidden="true">↗</span>' +
+            '<span class="sr-only">(새 창)</span></a>'
+          : '<span class="btn btn--disabled" aria-disabled="true">신청서 링크 준비 중</span>') +
+        (has(c.tel)
+          ? '<a class="btn btn--green" href="tel:' + esc(c.tel.replace(/[^0-9+]/g, "")) + '">' +
+            wfIcon("phone") + " 전화 상담 " + esc(c.tel) + "</a>"
+          : "") +
+      "</div>" +
+    "</div>";
+  } else {
+    applyHtml = '<div class="empty-state"><strong>이용 신청 안내 준비 중</strong>' +
+      "<p>신청 절차 안내를 정리하고 있습니다. 센터로 문의해 주세요.</p></div>";
+  }
 
   var galleryHtml = (c.gallery && c.gallery.length)
     ? '<div class="gallery-grid">' + c.gallery.map(function (g) {
@@ -171,6 +229,7 @@ window.wfPageInit = function () {
     '<nav class="anchor-nav" aria-label="센터 안내 항목"><div class="wrap"><ul class="anchor-nav__list">' +
       '<li><a class="anchor-nav__link is-active" href="#intro">센터 소개</a></li>' +
       '<li><a class="anchor-nav__link" href="#info">운영 정보</a></li>' +
+      '<li><a class="anchor-nav__link" href="#apply">이용 신청</a></li>' +
       '<li><a class="anchor-nav__link" href="#programs">주요 프로그램</a></li>' +
       '<li><a class="anchor-nav__link" href="#photos">활동 사진</a></li>' +
       '<li><a class="anchor-nav__link" href="#notices">공지사항</a></li>' +
@@ -190,17 +249,31 @@ window.wfPageInit = function () {
         '<div class="sec-head"><span class="eyebrow eyebrow--green">운영 정보</span>' +
         '<h2 class="sec-head__title" id="info-t">이용 대상과 운영시간</h2></div>' +
         '<div class="panel"><dl class="deflist">' +
-          '<div class="deflist__row"><dt>이용 대상</dt><dd>' + tbd(c.target) + "</dd></div>" +
+          '<div class="deflist__row"><dt>이용 대상</dt><dd>' + targetHtml + "</dd></div>" +
           '<div class="deflist__row"><dt>정원</dt><dd>' + tbd(c.capacity) + "</dd></div>" +
           '<div class="deflist__row"><dt>운영시간</dt><dd>' + hoursHtml + "</dd></div>" +
+          '<div class="deflist__row"><dt>이용료</dt><dd>' + feeHtml + "</dd></div>" +
           '<div class="deflist__row"><dt>소재지</dt><dd>' + tbd(c.address) + "</dd></div>" +
           '<div class="deflist__row"><dt>전화</dt><dd>' + telHtml + "</dd></div>" +
+          '<div class="deflist__row"><dt>이메일</dt><dd>' +
+            (has(c.email) ? '<a href="mailto:' + esc(c.email) + '">' + esc(c.email) + "</a>" : '<span class="tbd"></span>') +
+          "</dd></div>" +
           '<div class="deflist__row"><dt>팩스</dt><dd>' + tbd(c.fax) + "</dd></div>" +
-        "</dl></div>" +
+        "</dl>" +
+        (linksHtml ? '<div class="card__foot" style="margin-top:1.25rem">' + linksHtml + "</div>" : "") +
+        "</div>" +
       "</div>" +
     "</section>" +
 
-    '<section class="section section--cream" id="programs" aria-labelledby="prog-t">' +
+    '<section class="section section--cream" id="apply" aria-labelledby="apply-t">' +
+      '<div class="wrap wrap--narrow">' +
+        '<div class="sec-head"><span class="eyebrow">이용 신청</span>' +
+        '<h2 class="sec-head__title" id="apply-t">이렇게 신청합니다</h2></div>' +
+        applyHtml +
+      "</div>" +
+    "</section>" +
+
+    '<section class="section section--white" id="programs" aria-labelledby="prog-t">' +
       '<div class="wrap wrap--narrow">' +
         '<div class="sec-head"><span class="eyebrow">주요 프로그램</span>' +
         '<h2 class="sec-head__title" id="prog-t">이곳에서 하는 활동</h2></div>' +
@@ -208,7 +281,7 @@ window.wfPageInit = function () {
       "</div>" +
     "</section>" +
 
-    '<section class="section section--white" id="photos" aria-labelledby="ph-t">' +
+    '<section class="section section--cream" id="photos" aria-labelledby="ph-t">' +
       '<div class="wrap wrap--narrow">' +
         '<div class="sec-head"><span class="eyebrow eyebrow--green">활동 사진</span>' +
         '<h2 class="sec-head__title" id="ph-t">센터의 하루</h2></div>' +
@@ -216,7 +289,7 @@ window.wfPageInit = function () {
       "</div>" +
     "</section>" +
 
-    '<section class="section section--cream" id="notices" aria-labelledby="no-t">' +
+    '<section class="section section--white" id="notices" aria-labelledby="no-t">' +
       '<div class="wrap wrap--narrow">' +
         '<div class="sec-head"><span class="eyebrow">공지사항</span>' +
         '<h2 class="sec-head__title" id="no-t">센터 소식</h2></div>' +
@@ -224,7 +297,7 @@ window.wfPageInit = function () {
       "</div>" +
     "</section>" +
 
-    '<section class="section section--white" id="location" aria-labelledby="loc-t">' +
+    '<section class="section section--cream" id="location" aria-labelledby="loc-t">' +
       '<div class="wrap wrap--narrow">' +
         '<div class="sec-head"><span class="eyebrow eyebrow--green">위치 및 교통편</span>' +
         '<h2 class="sec-head__title" id="loc-t">찾아오시는 길</h2></div>' +
@@ -239,7 +312,7 @@ window.wfPageInit = function () {
       "</div>" +
     "</section>" +
 
-    '<section class="section section--cream"><div class="wrap">' +
+    '<section class="section section--white"><div class="wrap">' +
       '<div class="cta-band">' +
         '<h2 class="cta-band__title">아이들의 든든한 친구가 되어 주세요.</h2>' +
         '<p class="cta-band__lead">후원은 ' + esc(c.name) + " 아이들의 하루를 지킵니다.</p>" +
@@ -254,6 +327,6 @@ window.wfPageInit = function () {
     "</div></section>";
 };
 </script>
-<script src="assets/js/site.js?v=20260917c"></script>
+<script src="assets/js/site.js?v=20260917d"></script>
 </body>
 </html>
