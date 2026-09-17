@@ -3,3 +3,6 @@ Thumbs.db
 node_modules/
 .vercel
 *.log
+
+# 내부 배포용 자료 준비표 (공개 사이트에 올리지 않음)
+위드프렌즈-자료준비표.html
