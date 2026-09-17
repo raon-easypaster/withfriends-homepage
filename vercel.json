@@ -10,9 +10,23 @@
       ]
     },
     {
-      "source": "/assets/(.*)",
+      "comment": "CSS·JS·데이터 파일은 내용이 자주 바뀌므로 항상 서버에 확인합니다. (바뀌지 않았으면 304로 가벼우며, 수정 후 곧바로 반영됩니다)",
+      "source": "/assets/(css|js)/(.*)",
       "headers": [
-        { "key": "Cache-Control", "value": "public, max-age=604800, must-revalidate" }
+        { "key": "Cache-Control", "value": "public, max-age=0, must-revalidate" }
+      ]
+    },
+    {
+      "source": "/data/(.*)",
+      "headers": [
+        { "key": "Cache-Control", "value": "public, max-age=0, must-revalidate" }
+      ]
+    },
+    {
+      "comment": "이미지·폰트는 파일명이 바뀌기 전까지 그대로이므로 하루 동안 캐시합니다.",
+      "source": "/assets/images/(.*)",
+      "headers": [
+        { "key": "Cache-Control", "value": "public, max-age=86400, must-revalidate" }
       ]
     }
   ]

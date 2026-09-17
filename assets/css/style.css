@@ -640,14 +640,21 @@ body.nav-open { overflow: hidden; }
   width: 2px; height: 28px; background: var(--org-line);
 }
 .org-group__title {
-  display: block; border-radius: var(--r-pill); padding: 0.55rem 1.1rem;
-  font-weight: 700; font-size: var(--fs-sm);
+  display: flex; align-items: center; justify-content: center; gap: 0.45rem;
+  border-radius: var(--r-md); padding: 0.7rem 1rem; min-height: 52px;
+  font-weight: 700; font-size: var(--fs-sm); text-align: center;
   background: var(--c-green-soft); border: 2px solid var(--c-green); color: var(--c-green-deep);
 }
+.org-group__title svg { width: 20px; height: 20px; flex: none; }
 .org-group--dahamkke .org-group__title {
   background: var(--c-sky-soft); border-color: #4E93BC; color: #1F5872;
 }
-.org-group__title .count { font-weight: 700; opacity: .75; margin-left: 0.3rem; }
+.org-group__title .count {
+  flex: none; font-size: var(--fs-xs); font-weight: 700;
+  padding: 0.12rem 0.5rem; border-radius: var(--r-pill);
+  background: var(--c-green); color: var(--c-white);
+}
+.org-group--dahamkke .org-group__title .count { background: #2F6E92; }
 
 /* 센터 목록 — 가운데 세로선을 따라 이어집니다 */
 .org-leaf-list { position: relative; margin-top: 16px; padding-top: 16px; display: grid; gap: 0.6rem; }
@@ -656,16 +663,22 @@ body.nav-open { overflow: hidden; }
   width: 2px; background: var(--org-line);
 }
 .org-leaf {
-  position: relative; display: block; background: var(--c-white);
+  position: relative; display: flex; align-items: center; gap: 0.55rem;
+  background: var(--c-white); text-align: left;
   border: 2px solid var(--c-line); border-radius: var(--r-md);
-  padding: 0.6rem 0.9rem; font-size: var(--fs-sm); font-weight: 700;
-  box-shadow: var(--sh-1); min-height: 44px;
+  padding: 0.6rem 0.8rem; font-size: var(--fs-sm); font-weight: 700;
+  box-shadow: var(--sh-1); min-height: 48px;
   transition: transform var(--dur) var(--ease), border-color var(--dur) var(--ease),
               color var(--dur) var(--ease), box-shadow var(--dur) var(--ease);
 }
 a.org-leaf:hover { border-color: var(--c-coral); color: var(--c-coral-deep); transform: translateY(-2px); box-shadow: var(--sh-2); }
 .org-group--dahamkke a.org-leaf:hover { border-color: #4E93BC; color: #1F5872; }
-.org-leaf__note { display: block; font-weight: 400; font-size: var(--fs-xs); color: var(--c-ink-55); margin-top: 0.1rem; }
+.org-leaf__num {
+  flex: none; width: 24px; height: 24px; border-radius: 50%;
+  display: grid; place-items: center; font-size: 0.75rem; font-weight: 700;
+  background: var(--c-green-soft); color: var(--c-green-deep);
+}
+.org-group--dahamkke .org-leaf__num { background: var(--c-sky-soft); color: #1F5872; }
 .orgchart-caption { margin-top: 1.25rem; font-size: var(--fs-xs); color: var(--c-ink-55); text-align: center; }
 
 @media (max-width: 640px) {
