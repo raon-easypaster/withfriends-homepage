@@ -254,11 +254,31 @@
       return "<div><h3>" + esc(n.label) + "</h3><ul>" + subs + "</ul></div>";
     }).join("");
 
-    var watchdogs = o.watchdogs.map(function (w) {
+    /* 기관 바로가기 링크 한 개 */
+    function orgLink(w) {
       return '<a href="' + esc(w.url) + '" target="_blank" rel="noopener noreferrer">' +
              esc(w.name) + ' <span aria-hidden="true">↗</span>' +
-             '<span class="sr-only">(새 창)</span></a>';
-    }).join("");
+             '<span class="sr-only">(새 창에서 열림)</span></a>';
+    }
+    var watchdogs = (o.watchdogs || []).map(orgLink).join("");
+    var related = (o.relatedOrgs || []).map(orgLink).join("");
+
+    /* 푸터 하단 관련 기관 영역 */
+    var linkBand =
+      '<nav class="footer-orgs" aria-label="관련 기관 바로가기">' +
+        (watchdogs
+          ? '<div class="footer-orgs__row">' +
+              '<span class="footer-orgs__label">공익위반사항 관리감독기관</span>' +
+              '<div class="footer-orgs__links">' + watchdogs + "</div>" +
+            "</div>"
+          : "") +
+        (related
+          ? '<div class="footer-orgs__row">' +
+              '<span class="footer-orgs__label">관련 기관</span>' +
+              '<div class="footer-orgs__links">' + related + "</div>" +
+            "</div>"
+          : "") +
+      "</nav>";
 
     var sns = o.sns.length
       ? '<div class="footer-legal">' + o.sns.map(function (s) {
@@ -293,9 +313,7 @@
             '<a href="' + BASE + 'stories.html?cat=notice">공시자료</a>' +
           "</div>" + sns +
 
-          '<div class="footer-watchdog">' +
-            '<span class="footer-watchdog__label">공익위반사항 관리감독기관</span>' + watchdogs +
-          "</div>" +
+          linkBand +
 
           '<p class="footer-copy">© ' + new Date().getFullYear() + " " + esc(o.name) + ". All rights reserved.</p>" +
         "</div>" +

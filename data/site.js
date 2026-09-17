@@ -66,6 +66,13 @@ var WF_ORG = {
     { name: "국세청", url: "https://www.nts.go.kr" },
     { name: "국민권익위원회", url: "https://www.acrc.go.kr" }
   ],
+  /* 관련 기관 — 푸터 하단 바로가기.
+     기관을 더하려면 { name, url } 형태로 아래에 추가하세요.
+     (링크는 모두 새 창에서 열립니다) */
+  relatedOrgs: [
+    { name: "경기도", url: "https://www.gg.go.kr" },
+    { name: "부천시", url: "https://www.bucheon.go.kr" }
+  ],
   /* SNS 링크 — 기존 홈페이지에서 확인되지 않음. 주소가 생기면 아래에 추가하세요.
      예) { name: "인스타그램", url: "https://instagram.com/..." } */
   sns: []
