@@ -121,9 +121,13 @@ window.wfPageInit = function () {
     Array.prototype.forEach.call(filters.children, function (x) {
       x.setAttribute("aria-pressed", String(x === b));
     });
-    var url = new URL(window.location.href);
-    if (current === "all") { url.searchParams.delete("cat"); } else { url.searchParams.set("cat", current); }
-    history.replaceState(null, "", url);
+    /* 주소창도 함께 갱신해 링크를 공유할 수 있게 합니다.
+       (파일을 직접 열었을 때는 주소 변경이 막히므로 오류를 무시합니다.) */
+    try {
+      var url = new URL(window.location.href);
+      if (current === "all") { url.searchParams.delete("cat"); } else { url.searchParams.set("cat", current); }
+      history.replaceState(null, "", url);
+    } catch (err) { /* file:// 로 열었을 때는 그냥 넘어갑니다 */ }
     draw();
   });
   draw();
