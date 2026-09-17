@@ -150,3 +150,22 @@ gallery: [
 
 값을 비워 두면 화면에 **“정보 준비 중”** 으로 표시됩니다.
 확인되지 않은 정보를 임의로 채우지 마세요.
+
+---
+
+## 8. 현재 배포 상태
+
+| 항목 | 주소 |
+| --- | --- |
+| 미리보기 사이트 | https://withfriends-homepage.vercel.app |
+| 소스 저장소 | https://github.com/raon-easypaster/withfriends-homepage |
+
+GitHub 저장소가 Vercel에 연결되어 있어, `main` 브랜치에 변경 사항을 올리면 자동으로 다시 배포됩니다.
+
+```bash
+git add -A && git commit -m "내용 수정" && git push
+```
+
+`withfriends-homepage.vercel.app` 는 확인용 임시 주소입니다.
+실제 운영은 `www.withfriends.or.kr` 도메인을 Vercel 프로젝트에 연결한 뒤,
+위 6번의 도메인 주소 교체 작업을 함께 진행해 주세요.
