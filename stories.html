@@ -1,0 +1,134 @@
+<!doctype html>
+<html lang="ko">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>활동소식 | 사단법인 위드프렌즈</title>
+<meta name="description" content="위드프렌즈 센터 이야기와 프로그램 이야기, 공지사항, 보도 및 자료를 한 곳에서 확인하세요.">
+<meta name="theme-color" content="#FFF8EF">
+<link rel="canonical" href="http://www.withfriends.or.kr/stories.html">
+<meta property="og:type" content="website">
+<meta property="og:site_name" content="사단법인 위드프렌즈">
+<meta property="og:locale" content="ko_KR">
+<meta property="og:title" content="활동소식 | 사단법인 위드프렌즈">
+<meta property="og:description" content="센터 이야기와 공지사항, 공시자료를 전합니다.">
+<meta property="og:url" content="http://www.withfriends.or.kr/stories.html">
+<meta property="og:image" content="http://www.withfriends.or.kr/assets/images/og-image.jpg">
+<meta name="twitter:card" content="summary_large_image">
+<link rel="icon" href="assets/images/favicon.ico" sizes="any">
+<link rel="preconnect" href="https://cdn.jsdelivr.net" crossorigin>
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.9/dist/web/variable/pretendardvariable-dynamic-subset.min.css">
+<link rel="stylesheet" href="assets/css/style.css">
+</head>
+
+<body data-page="stories">
+<a class="skip-link" href="#main">본문 바로가기</a>
+<header class="site-header" id="site-header"></header>
+
+<main id="main">
+  <section class="page-hero">
+    <div class="wrap">
+      <nav class="breadcrumb" aria-label="현재 위치">
+        <ol><li><a href="index.html">홈</a></li><li>활동소식</li></ol>
+      </nav>
+      <h1 class="page-hero__title">함께해서 달라진 오늘</h1>
+      <p class="page-hero__lead">센터에서 만들어지는 하루하루의 이야기와 법인의 공지·공시자료를 전합니다.</p>
+    </div>
+  </section>
+
+  <section class="section section--cream" aria-labelledby="posts-t">
+    <div class="wrap">
+      <h2 class="sr-only" id="posts-t">활동소식 목록</h2>
+
+      <div class="filters" role="group" aria-label="소식 분류 선택" id="post-filters"></div>
+      <p class="sr-only" id="post-count" aria-live="polite"></p>
+
+      <div id="sample-banner" hidden style="margin-bottom:1.5rem">
+        <div class="notice-box">
+          <span class="notice-box__icon" aria-hidden="true">!</span>
+          <span>
+            <strong>“샘플” 표시가 붙은 글은 화면 구성을 보여 주기 위한 예시입니다.</strong>
+            실제 내용이 아니므로, 실제 글로 바꾸거나
+            <code>data/stories.js</code> 의 <code>WF_SHOW_SAMPLE_POSTS</code> 값을 <code>false</code> 로 바꿔 숨겨 주세요.
+          </span>
+        </div>
+      </div>
+
+      <div class="grid grid--3" id="post-grid"></div>
+    </div>
+  </section>
+
+  <section class="section section--white">
+    <div class="wrap">
+      <div class="cta-band">
+        <h2 class="cta-band__title">아이들의 든든한 친구가 되어 주세요.</h2>
+        <p class="cta-band__lead">오늘의 이야기가 내일도 이어지도록 함께해 주세요.</p>
+        <div class="cta-band__btns">
+          <a class="btn btn--ghost btn--lg" data-donate data-donate-location="stories_cta">
+            체리에서 안전하게 후원하기 <span class="btn__ext" aria-hidden="true">↗</span>
+          </a>
+          <a class="btn btn--ghost btn--lg" href="support.html#volunteer">자원봉사 알아보기</a>
+        </div>
+        <p class="ext-note ext-note--light">
+          후원 신청과 결제는 외부 사이트인 체리 기부 플랫폼에서 진행됩니다.
+          <span data-donate-pending hidden><br><strong>현재 체리 기부 페이지 주소가 등록되지 않아 후원 버튼이 연결되지 않습니다.</strong></span>
+        </p>
+      </div>
+    </div>
+  </section>
+</main>
+
+<footer class="site-footer" id="site-footer"></footer>
+
+<script src="data/site.js"></script>
+<script src="data/centers.js"></script>
+<script src="data/stories.js"></script>
+<script>
+window.wfPageInit = function () {
+  var grid = document.getElementById("post-grid");
+  var filters = document.getElementById("post-filters");
+  var countEl = document.getElementById("post-count");
+  var posts = wfVisiblePosts();
+
+  if (posts.some(function (p) { return p.sample; })) {
+    document.getElementById("sample-banner").hidden = false;
+  }
+
+  var params = new URLSearchParams(window.location.search);
+  var current = params.get("cat") || "all";
+  if (!WF_POST_CATEGORIES.some(function (t) { return t.id === current; })) current = "all";
+
+  filters.innerHTML = WF_POST_CATEGORIES.map(function (t) {
+    var n = t.id === "all" ? posts.length
+          : posts.filter(function (p) { return p.category === t.id; }).length;
+    return '<button type="button" class="filter-btn" data-cat="' + t.id + '" aria-pressed="' +
+           (t.id === current) + '">' + t.label + ' <span aria-hidden="true">(' + n + ')</span>' +
+           '<span class="sr-only">' + n + '건</span></button>';
+  }).join("");
+
+  function draw() {
+    var list = posts.filter(function (p) { return current === "all" || p.category === current; });
+    grid.innerHTML = list.length ? list.map(wfStoryCard).join("")
+      : '<div class="empty-state" style="grid-column:1/-1"><strong>등록된 소식이 없습니다</strong>' +
+        "<p>새로운 소식이 올라오면 이곳에 소개됩니다.</p></div>";
+    countEl.textContent = "총 " + list.length + "건이 표시되었습니다.";
+  }
+
+  filters.addEventListener("click", function (e) {
+    var b = e.target.closest(".filter-btn");
+    if (!b) return;
+    current = b.getAttribute("data-cat");
+    Array.prototype.forEach.call(filters.children, function (x) {
+      x.setAttribute("aria-pressed", String(x === b));
+    });
+    var url = new URL(window.location.href);
+    if (current === "all") { url.searchParams.delete("cat"); } else { url.searchParams.set("cat", current); }
+    history.replaceState(null, "", url);
+    draw();
+  });
+  draw();
+};
+</script>
+<script src="assets/js/site.js"></script>
+</body>
+</html>

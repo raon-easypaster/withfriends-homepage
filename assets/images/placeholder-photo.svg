@@ -1,0 +1,19 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 800 500" width="800" height="500" role="img" aria-label="사진 준비 중">
+  <defs>
+    <linearGradient id="g" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0%" stop-color="#FFF3E2"/>
+      <stop offset="55%" stop-color="#FDE7DC"/>
+      <stop offset="100%" stop-color="#E6F1F8"/>
+    </linearGradient>
+  </defs>
+  <rect width="800" height="500" fill="url(#g)"/>
+  <circle cx="122" cy="96" r="58" fill="#F4C95D" opacity=".35"/>
+  <circle cx="700" cy="420" r="82" fill="#83C5E8" opacity=".3"/>
+  <circle cx="654" cy="104" r="26" fill="#F26B5E" opacity=".28"/>
+  <g transform="translate(400 226)" fill="none" stroke="#F26B5E" stroke-width="9" stroke-linecap="round" stroke-linejoin="round" opacity=".62">
+    <path d="M-72 -28h30l12-18h60l12 18h30a14 14 0 0 1 14 14v70a14 14 0 0 1-14 14h-144a14 14 0 0 1-14-14v-70a14 14 0 0 1 14-14z"/>
+    <circle cx="0" cy="26" r="27"/>
+  </g>
+  <text x="400" y="352" text-anchor="middle" font-family="Pretendard, 'Apple SD Gothic Neo', 'Malgun Gothic', sans-serif" font-size="30" font-weight="700" fill="#24332B" opacity=".72">사진 준비 중</text>
+  <text x="400" y="392" text-anchor="middle" font-family="Pretendard, 'Apple SD Gothic Neo', 'Malgun Gothic', sans-serif" font-size="19" fill="#24332B" opacity=".5">assets/images/ 폴더의 사진으로 교체해 주세요</text>
+</svg>

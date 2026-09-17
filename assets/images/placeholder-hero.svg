@@ -1,0 +1,20 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 820" width="1200" height="820" role="img" aria-label="활동 사진 준비 중">
+  <defs>
+    <linearGradient id="hg" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0%" stop-color="#FFF1DF"/>
+      <stop offset="50%" stop-color="#FBDCCD"/>
+      <stop offset="100%" stop-color="#DCEDF8"/>
+    </linearGradient>
+  </defs>
+  <rect width="1200" height="820" fill="url(#hg)"/>
+  <circle cx="200" cy="170" r="110" fill="#F4C95D" opacity=".3"/>
+  <circle cx="1010" cy="660" r="150" fill="#83C5E8" opacity=".32"/>
+  <circle cx="980" cy="180" r="48" fill="#F26B5E" opacity=".25"/>
+  <circle cx="300" cy="700" r="64" fill="#3E7C59" opacity=".2"/>
+  <g transform="translate(600 370)" fill="none" stroke="#F26B5E" stroke-width="11" stroke-linecap="round" stroke-linejoin="round" opacity=".6">
+    <path d="M-88 -34h36l15-22h74l15 22h36a17 17 0 0 1 17 17v86a17 17 0 0 1-17 17h-176a17 17 0 0 1-17-17v-86a17 17 0 0 1 17-17z"/>
+    <circle cx="0" cy="32" r="33"/>
+  </g>
+  <text x="600" y="530" text-anchor="middle" font-family="Pretendard, 'Apple SD Gothic Neo', 'Malgun Gothic', sans-serif" font-size="36" font-weight="700" fill="#24332B" opacity=".7">활동 사진을 넣어 주세요</text>
+  <text x="600" y="578" text-anchor="middle" font-family="Pretendard, 'Apple SD Gothic Neo', 'Malgun Gothic', sans-serif" font-size="21" fill="#24332B" opacity=".5">assets/images/hero.jpg 파일로 교체하면 자동 반영됩니다</text>
+</svg>

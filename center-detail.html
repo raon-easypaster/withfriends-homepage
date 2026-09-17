@@ -1,0 +1,259 @@
+<!doctype html>
+<html lang="ko">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>센터 안내 | 사단법인 위드프렌즈</title>
+<meta name="description" content="위드프렌즈 운영시설의 소개, 운영 정보, 주요 프로그램, 위치와 문의 방법을 안내합니다.">
+<meta name="theme-color" content="#FFF8EF">
+<link rel="canonical" href="http://www.withfriends.or.kr/center-detail.html">
+<meta property="og:type" content="website">
+<meta property="og:site_name" content="사단법인 위드프렌즈">
+<meta property="og:locale" content="ko_KR">
+<meta property="og:title" content="센터 안내 | 사단법인 위드프렌즈">
+<meta property="og:description" content="위드프렌즈 운영시설의 소개와 이용 안내입니다.">
+<meta property="og:url" content="http://www.withfriends.or.kr/center-detail.html">
+<meta property="og:image" content="http://www.withfriends.or.kr/assets/images/og-image.jpg">
+<meta name="twitter:card" content="summary_large_image">
+<link rel="icon" href="assets/images/favicon.ico" sizes="any">
+<link rel="preconnect" href="https://cdn.jsdelivr.net" crossorigin>
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.9/dist/web/variable/pretendardvariable-dynamic-subset.min.css">
+<link rel="stylesheet" href="assets/css/style.css">
+</head>
+
+<body data-page="centers">
+<a class="skip-link" href="#main">본문 바로가기</a>
+<header class="site-header" id="site-header"></header>
+
+<main id="main">
+  <div id="detail-root">
+    <section class="section"><div class="wrap"><p>센터 정보를 불러오는 중입니다…</p></div></section>
+  </div>
+</main>
+
+<footer class="site-footer" id="site-footer"></footer>
+
+<script src="data/site.js"></script>
+<script src="data/centers.js"></script>
+<script src="data/stories.js"></script>
+<script>
+window.wfPageInit = function () {
+  var root = document.getElementById("detail-root");
+  var id = new URLSearchParams(window.location.search).get("id");
+  var c = WF_CENTERS.filter(function (x) { return x.id === id; })[0];
+
+  function esc(s) {
+    return String(s == null ? "" : s).replace(/&/g, "&amp;").replace(/</g, "&lt;")
+      .replace(/>/g, "&gt;").replace(/"/g, "&quot;").replace(/'/g, "&#39;");
+  }
+  function has(v) { return v !== null && v !== undefined && String(v).trim() !== ""; }
+  function tbd(v) { return has(v) ? esc(v) : '<span class="tbd"></span>'; }
+
+  /* ---- 잘못된 주소로 들어온 경우 ---- */
+  if (!c) {
+    document.title = "센터를 찾을 수 없습니다 | 사단법인 위드프렌즈";
+    root.innerHTML =
+      '<section class="section"><div class="wrap wrap--narrow">' +
+      '<div class="empty-state"><strong>요청하신 센터를 찾을 수 없습니다</strong>' +
+      "<p>주소가 잘못되었거나 센터 정보가 변경되었을 수 있습니다.</p>" +
+      '<p style="margin-top:1.25rem"><a class="btn btn--primary" href="centers.html">운영시설 전체 보기</a></p>' +
+      "</div></div></section>";
+    return;
+  }
+
+  /* ---- 메타 정보 갱신 ---- */
+  document.title = c.name + " | 사단법인 위드프렌즈";
+  var descText = has(c.tagline) ? c.tagline
+    : (c.intro && c.intro[0] ? c.intro[0].slice(0, 120) : c.name + " 안내입니다.");
+  var md = document.querySelector('meta[name="description"]');
+  if (md) md.setAttribute("content", c.name + " — " + descText);
+  var ogt = document.querySelector('meta[property="og:title"]');
+  if (ogt) ogt.setAttribute("content", c.name + " | 사단법인 위드프렌즈");
+  var ogd = document.querySelector('meta[property="og:description"]');
+  if (ogd) ogd.setAttribute("content", descText);
+  var canon = document.querySelector('link[rel="canonical"]');
+  var ogu = document.querySelector('meta[property="og:url"]');
+  var pageUrl = SITE_BASE_URL + "/center-detail.html?id=" + encodeURIComponent(c.id);
+  if (canon) canon.setAttribute("href", pageUrl);
+  if (ogu) ogu.setAttribute("content", pageUrl);
+
+  /* ---- 구조화 데이터 : 확인된 값만 넣습니다 ---- */
+  var ld = { "@context": "https://schema.org", "@type": "ChildCare", "name": c.name, "url": pageUrl,
+             "parentOrganization": { "@type": "NGO", "name": WF_ORG.name, "url": SITE_BASE_URL + "/" } };
+  if (has(c.tel)) ld.telephone = c.tel;
+  if (has(c.address)) {
+    ld.address = { "@type": "PostalAddress", "streetAddress": c.address,
+                   "addressRegion": "경기도", "addressCountry": "KR" };
+  }
+  var s = document.createElement("script");
+  s.type = "application/ld+json";
+  s.textContent = JSON.stringify(ld);
+  document.head.appendChild(s);
+
+  /* ---- 조각 만들기 ---- */
+  var photo = has(c.photo) ? c.photo : "assets/images/placeholder-photo.svg";
+  var photoAlt = has(c.photo) ? esc(c.photoAlt || c.name) : "";
+
+  var introHtml = (c.intro && c.intro.length)
+    ? c.intro.map(function (p) { return "<p>" + esc(p) + "</p>"; }).join("")
+    : '<p class="tbd"></p>';
+
+  var hoursHtml = (c.hours && c.hours.length)
+    ? "<ul>" + c.hours.map(function (h) { return "<li>" + esc(h) + "</li>"; }).join("") + "</ul>" +
+      (has(c.hoursNote) ? '<p class="ext-note">' + esc(c.hoursNote) + "</p>" : "")
+    : '<span class="tbd"></span>';
+
+  var telHtml = has(c.tel)
+    ? '<a href="tel:' + esc(c.tel.replace(/[^0-9+]/g, "")) + '">' + esc(c.tel) + "</a>"
+    : '<span class="tbd"></span>';
+
+  var programsHtml = (c.programs && c.programs.length)
+    ? '<div class="grid grid--2">' + c.programs.map(function (p) {
+        return '<div class="value-item"><h3>' + esc(p.name) + "</h3>" +
+               (has(p.desc) ? "<p>" + esc(p.desc) + "</p>" : "") + "</div>";
+      }).join("") + "</div>"
+    : '<div class="empty-state"><strong>주요 프로그램 정보 준비 중</strong>' +
+      "<p>운영 중인 프로그램 안내를 정리하고 있습니다. 자세한 내용은 센터로 문의해 주세요.</p></div>";
+
+  var galleryHtml = (c.gallery && c.gallery.length)
+    ? '<div class="gallery-grid">' + c.gallery.map(function (g) {
+        return '<img src="' + esc(g.src) + '" alt="' + esc(g.alt || "") + '" loading="lazy">';
+      }).join("") + "</div>"
+    : '<div class="empty-state"><strong>활동 사진 준비 중</strong>' +
+      "<p>보호자 동의를 받은 활동 사진이 준비되면 이곳에 소개합니다.</p></div>";
+
+  /* 센터 공지 = 센터별 공지 + 법인 공지 중 해당 센터 글 */
+  var centerPosts = (c.notices || []).slice();
+  wfVisiblePosts().forEach(function (p) { if (p.center === c.name) centerPosts.push(p); });
+  var noticeHtml = centerPosts.length
+    ? '<div class="news-list">' + centerPosts.map(wfNewsItem).join("") + "</div>"
+    : '<div class="empty-state"><strong>등록된 공지사항이 없습니다</strong>' +
+      '<p>법인 공지사항은 <a href="stories.html?cat=notice">활동소식</a>에서 확인하실 수 있습니다.</p></div>';
+
+  var mapBtn = has(c.address)
+    ? '<a class="btn btn--primary" href="https://map.naver.com/p/search/' + encodeURIComponent(c.address) +
+      '" target="_blank" rel="noopener noreferrer">' + wfIcon("route") +
+      ' 네이버 지도에서 보기<span class="sr-only"> (새 창)</span></a>' +
+      '<a class="btn btn--outline" href="https://map.kakao.com/?q=' + encodeURIComponent(c.address) +
+      '" target="_blank" rel="noopener noreferrer">' + wfIcon("pin") +
+      ' 카카오맵에서 보기<span class="sr-only"> (새 창)</span></a>'
+    : '<span class="btn btn--disabled" aria-disabled="true">' + wfIcon("route") + " 주소 확인 후 길찾기가 연결됩니다</span>";
+
+  var telBtn = has(c.tel)
+    ? '<a class="btn btn--green btn--lg" href="tel:' + esc(c.tel.replace(/[^0-9+]/g, "")) + '">' +
+      wfIcon("phone") + " 전화 문의 " + esc(c.tel) + "</a>"
+    : '<span class="btn btn--lg btn--disabled" aria-disabled="true">' + wfIcon("phone") + " 전화번호 준비 중</span>";
+
+  /* ---- 화면 그리기 ---- */
+  root.innerHTML =
+    '<section class="page-hero">' +
+      '<div class="wrap">' +
+        '<nav class="breadcrumb" aria-label="현재 위치"><ol>' +
+          '<li><a href="index.html">홈</a></li>' +
+          '<li><a href="centers.html">운영시설</a></li>' +
+          "<li>" + esc(c.name) + "</li>" +
+        "</ol></nav>" +
+        '<div class="center-detail__hero" style="margin-top:1.25rem">' +
+          "<div>" +
+            (has(c.mark) ? '<img class="center-detail__mark" src="' + esc(c.mark) + '" alt="' + esc(c.name) + ' 상징 이미지">' : "") +
+            '<span class="tag ' + (c.type === "dahamkke" ? "tag--green" : "tag--coral") + '">' + esc(c.typeLabel) + "</span>" +
+            '<h1 class="page-hero__title">' + esc(c.name) + "</h1>" +
+            '<p class="page-hero__lead">' + (has(c.tagline) ? esc(c.tagline) : '<span class="tbd"></span>') + "</p>" +
+            '<div class="center-actions">' + telBtn + "</div>" +
+          "</div>" +
+          '<div class="center-detail__photo">' +
+            '<img src="' + esc(photo) + '" alt="' + photoAlt + '"' + (has(c.photo) ? "" : ' role="presentation"') + ">" +
+          "</div>" +
+        "</div>" +
+      "</div>" +
+    "</section>" +
+
+    '<nav class="anchor-nav" aria-label="센터 안내 항목"><div class="wrap"><ul class="anchor-nav__list">' +
+      '<li><a class="anchor-nav__link is-active" href="#intro">센터 소개</a></li>' +
+      '<li><a class="anchor-nav__link" href="#info">운영 정보</a></li>' +
+      '<li><a class="anchor-nav__link" href="#programs">주요 프로그램</a></li>' +
+      '<li><a class="anchor-nav__link" href="#photos">활동 사진</a></li>' +
+      '<li><a class="anchor-nav__link" href="#notices">공지사항</a></li>' +
+      '<li><a class="anchor-nav__link" href="#location">위치 및 교통편</a></li>' +
+    "</ul></div></nav>" +
+
+    '<section class="section section--cream" id="intro" aria-labelledby="intro-t">' +
+      '<div class="wrap wrap--narrow">' +
+        '<div class="sec-head"><span class="eyebrow">센터 소개</span>' +
+        '<h2 class="sec-head__title" id="intro-t">' + esc(c.name) + "</h2></div>" +
+        '<div class="panel prose prose--lead">' + introHtml + "</div>" +
+      "</div>" +
+    "</section>" +
+
+    '<section class="section section--white" id="info" aria-labelledby="info-t">' +
+      '<div class="wrap wrap--narrow">' +
+        '<div class="sec-head"><span class="eyebrow eyebrow--green">운영 정보</span>' +
+        '<h2 class="sec-head__title" id="info-t">이용 대상과 운영시간</h2></div>' +
+        '<div class="panel"><dl class="deflist">' +
+          '<div class="deflist__row"><dt>이용 대상</dt><dd>' + tbd(c.target) + "</dd></div>" +
+          '<div class="deflist__row"><dt>정원</dt><dd>' + tbd(c.capacity) + "</dd></div>" +
+          '<div class="deflist__row"><dt>운영시간</dt><dd>' + hoursHtml + "</dd></div>" +
+          '<div class="deflist__row"><dt>소재지</dt><dd>' + tbd(c.address) + "</dd></div>" +
+          '<div class="deflist__row"><dt>전화</dt><dd>' + telHtml + "</dd></div>" +
+          '<div class="deflist__row"><dt>팩스</dt><dd>' + tbd(c.fax) + "</dd></div>" +
+        "</dl></div>" +
+      "</div>" +
+    "</section>" +
+
+    '<section class="section section--cream" id="programs" aria-labelledby="prog-t">' +
+      '<div class="wrap wrap--narrow">' +
+        '<div class="sec-head"><span class="eyebrow">주요 프로그램</span>' +
+        '<h2 class="sec-head__title" id="prog-t">이곳에서 하는 활동</h2></div>' +
+        programsHtml +
+      "</div>" +
+    "</section>" +
+
+    '<section class="section section--white" id="photos" aria-labelledby="ph-t">' +
+      '<div class="wrap wrap--narrow">' +
+        '<div class="sec-head"><span class="eyebrow eyebrow--green">활동 사진</span>' +
+        '<h2 class="sec-head__title" id="ph-t">센터의 하루</h2></div>' +
+        galleryHtml +
+      "</div>" +
+    "</section>" +
+
+    '<section class="section section--cream" id="notices" aria-labelledby="no-t">' +
+      '<div class="wrap wrap--narrow">' +
+        '<div class="sec-head"><span class="eyebrow">공지사항</span>' +
+        '<h2 class="sec-head__title" id="no-t">센터 소식</h2></div>' +
+        noticeHtml +
+      "</div>" +
+    "</section>" +
+
+    '<section class="section section--white" id="location" aria-labelledby="loc-t">' +
+      '<div class="wrap wrap--narrow">' +
+        '<div class="sec-head"><span class="eyebrow eyebrow--green">위치 및 교통편</span>' +
+        '<h2 class="sec-head__title" id="loc-t">찾아오시는 길</h2></div>' +
+        '<div class="panel">' +
+          '<dl class="deflist">' +
+            '<div class="deflist__row"><dt>주소</dt><dd>' + tbd(c.address) + "</dd></div>" +
+            '<div class="deflist__row"><dt>교통편</dt><dd>' + tbd(c.transit) + "</dd></div>" +
+          "</dl>" +
+          '<div class="card__foot" style="margin-top:1.25rem">' + mapBtn + "</div>" +
+          '<p class="ext-note">지도 서비스는 외부 사이트(네이버 지도 · 카카오맵)에서 새 창으로 열립니다.</p>' +
+        "</div>" +
+      "</div>" +
+    "</section>" +
+
+    '<section class="section section--cream"><div class="wrap">' +
+      '<div class="cta-band">' +
+        '<h2 class="cta-band__title">아이들의 든든한 친구가 되어 주세요.</h2>' +
+        '<p class="cta-band__lead">후원은 ' + esc(c.name) + " 아이들의 하루를 지킵니다.</p>" +
+        '<div class="cta-band__btns">' +
+          '<a class="btn btn--ghost btn--lg" data-donate data-donate-location="center_detail_' + esc(c.id) + '">' +
+            '체리에서 안전하게 후원하기 <span class="btn__ext" aria-hidden="true">↗</span></a>' +
+          '<a class="btn btn--ghost btn--lg" href="centers.html">다른 센터 보기</a>' +
+        "</div>" +
+        '<p class="ext-note ext-note--light">후원 신청과 결제는 외부 사이트인 체리 기부 플랫폼에서 진행됩니다.' +
+        '<span data-donate-pending hidden><br><strong>현재 체리 기부 페이지 주소가 등록되지 않아 후원 버튼이 연결되지 않습니다.</strong></span></p>' +
+      "</div>" +
+    "</div></section>";
+};
+</script>
+<script src="assets/js/site.js"></script>
+</body>
+</html>

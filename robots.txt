@@ -1,0 +1,8 @@
+# 사단법인 위드프렌즈
+User-agent: *
+Allow: /
+Disallow: /privacy.html
+Disallow: /terms.html
+
+# ★ 배포 도메인이 확정되면 아래 주소를 실제 주소로 바꿔 주세요.
+Sitemap: http://www.withfriends.or.kr/sitemap.xml

@@ -1,0 +1,249 @@
+<!doctype html>
+<html lang="ko">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>참여·후원 | 사단법인 위드프렌즈</title>
+<meta name="description" content="위드프렌즈 후원 안내, 자원봉사, 기관 및 기업 협력 방법을 안내합니다. 온라인 후원은 체리 기부 플랫폼에서 안전하게 진행됩니다.">
+<meta name="theme-color" content="#FFF8EF">
+<link rel="canonical" href="http://www.withfriends.or.kr/support.html">
+<meta property="og:type" content="website">
+<meta property="og:site_name" content="사단법인 위드프렌즈">
+<meta property="og:locale" content="ko_KR">
+<meta property="og:title" content="참여·후원 | 사단법인 위드프렌즈">
+<meta property="og:description" content="여러분의 작은 후원이 아이들에게 큰 힘이 됩니다.">
+<meta property="og:url" content="http://www.withfriends.or.kr/support.html">
+<meta property="og:image" content="http://www.withfriends.or.kr/assets/images/og-image.jpg">
+<meta name="twitter:card" content="summary_large_image">
+<link rel="icon" href="assets/images/favicon.ico" sizes="any">
+<link rel="preconnect" href="https://cdn.jsdelivr.net" crossorigin>
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.9/dist/web/variable/pretendardvariable-dynamic-subset.min.css">
+<link rel="stylesheet" href="assets/css/style.css">
+</head>
+
+<body data-page="support">
+<a class="skip-link" href="#main">본문 바로가기</a>
+<header class="site-header" id="site-header"></header>
+
+<main id="main">
+  <section class="page-hero">
+    <div class="wrap">
+      <nav class="breadcrumb" aria-label="현재 위치">
+        <ol><li><a href="index.html">홈</a></li><li>참여·후원</li></ol>
+      </nav>
+      <h1 class="page-hero__title">여러분의 작은 후원이 아이들에게 큰 힘이 됩니다.</h1>
+      <p class="page-hero__lead">아이들의 꿈을 후원해 주세요. 후원과 봉사, 협력 모두 아이들에게 오래 남는 응원이 됩니다.</p>
+    </div>
+  </section>
+
+  <nav class="anchor-nav" aria-label="참여·후원 항목">
+    <div class="wrap">
+      <ul class="anchor-nav__list">
+        <li><a class="anchor-nav__link is-active" href="#donate">후원 안내</a></li>
+        <li><a class="anchor-nav__link" href="#cherry">체리에서 후원하기</a></li>
+        <li><a class="anchor-nav__link" href="#volunteer">자원봉사</a></li>
+        <li><a class="anchor-nav__link" href="#partner">기관 및 기업 협력</a></li>
+      </ul>
+    </div>
+  </nav>
+
+  <!-- ==================================================== 후원 안내 -->
+  <section class="section section--cream" id="donate" aria-labelledby="donate-t">
+    <div class="wrap">
+      <div class="sec-head">
+        <span class="eyebrow">후원 안내</span>
+        <h2 class="sec-head__title" id="donate-t">두 가지 방법으로 후원할 수 있습니다</h2>
+      </div>
+
+      <div class="grid grid--2">
+        <div class="panel">
+          <h3 class="panel__title">1. 온라인 후원 — 체리 기부 플랫폼</h3>
+          <p class="prose" style="color:var(--c-ink-70)">
+            온라인 후원은 공식 기부 플랫폼인 <strong>체리(Cherry)</strong>의 위드프렌즈 페이지에서 진행합니다.
+            위드프렌즈 홈페이지에서는 카드번호나 계좌번호 같은 결제 정보를 받지 않습니다.
+          </p>
+          <div class="card__foot" style="margin-top:1.25rem">
+            <a class="btn btn--primary btn--lg btn--block" data-donate data-donate-location="support_main">
+              체리에서 안전하게 후원하기 <span class="btn__ext" aria-hidden="true">↗</span>
+            </a>
+          </div>
+          <p class="ext-note">
+            후원 신청과 결제는 외부 사이트인 체리 기부 플랫폼에서 진행됩니다. 링크는 새 창에서 열립니다.
+          </p>
+          <div data-donate-pending hidden>
+            <div class="notice-box" style="margin-top:1rem">
+              <span class="notice-box__icon" aria-hidden="true">!</span>
+              <span>
+                <strong>체리 기부 페이지 주소가 아직 등록되지 않았습니다.</strong>
+                잘못된 사이트로 이동하지 않도록 후원 버튼을 잠시 잠가 두었습니다.
+                그동안에는 아래 계좌후원이나 전화 문의를 이용해 주세요.
+              </span>
+            </div>
+          </div>
+        </div>
+
+        <div class="panel">
+          <h3 class="panel__title">2. 계좌 후원</h3>
+          <p class="prose" style="color:var(--c-ink-70)">아래 계좌로 직접 후원하실 수 있습니다.</p>
+          <div class="account-box" style="margin-top:1rem">
+            <p class="account-box__num" id="account-num"></p>
+            <p class="account-box__holder" id="account-holder"></p>
+          </div>
+          <div class="card__foot" style="margin-top:1.25rem">
+            <button class="btn btn--outline" type="button" id="copy-account">계좌번호 복사</button>
+            <a class="btn btn--green" id="support-tel">전화 문의</a>
+          </div>
+          <p class="ext-note" id="copy-msg" role="status" aria-live="polite"></p>
+          <p class="ext-note">
+            기부금 영수증 발급 등 자세한 안내는 법인 대표전화나 이메일로 문의해 주세요.
+          </p>
+        </div>
+      </div>
+
+      <div class="notice-box" style="margin-top:1.75rem">
+        <span class="notice-box__icon" aria-hidden="true">!</span>
+        <span>
+          정기후원 금액 구간, 후원금 사용처 세부 내역 등은 공개된 자료가 확인되지 않아
+          <strong>안내를 준비하고 있습니다.</strong>
+          해마다 공시하는 <a href="stories.html?cat=notice">기부금 모금액 및 활용실적</a>을 확인하실 수 있습니다.
+        </span>
+      </div>
+    </div>
+  </section>
+
+  <!-- =========================================== 체리에서 후원하기 -->
+  <section class="section section--white" id="cherry" aria-labelledby="cherry-t">
+    <div class="wrap wrap--narrow">
+      <div class="sec-head">
+        <span class="eyebrow eyebrow--green">체리에서 후원하기</span>
+        <h2 class="sec-head__title" id="cherry-t">후원은 이렇게 진행됩니다</h2>
+      </div>
+
+      <div class="panel">
+        <ol style="display:grid;gap:1.25rem">
+          <li class="support-step">
+            <span class="support-step__num" aria-hidden="true">1</span>
+            <div>
+              <h3 style="font-size:1.05rem">‘체리에서 안전하게 후원하기’ 버튼을 누릅니다</h3>
+              <p style="color:var(--c-ink-70);font-size:var(--fs-sm)">
+                새 창으로 <strong>체리 기부 플랫폼</strong>의 위드프렌즈 페이지가 열립니다.
+              </p>
+            </div>
+          </li>
+          <li class="support-step">
+            <span class="support-step__num" aria-hidden="true">2</span>
+            <div>
+              <h3 style="font-size:1.05rem">체리에서 후원 방식과 금액을 고릅니다</h3>
+              <p style="color:var(--c-ink-70);font-size:var(--fs-sm)">
+                일시후원과 정기후원 중에서 고를 수 있습니다.
+              </p>
+            </div>
+          </li>
+          <li class="support-step">
+            <span class="support-step__num" aria-hidden="true">3</span>
+            <div>
+              <h3 style="font-size:1.05rem">결제와 영수증 처리는 체리에서 이루어집니다</h3>
+              <p style="color:var(--c-ink-70);font-size:var(--fs-sm)">
+                위드프렌즈 홈페이지에서는 결제 정보를 입력하거나 저장하지 않습니다.
+              </p>
+            </div>
+          </li>
+        </ol>
+
+        <div class="card__foot" style="margin-top:1.75rem">
+          <a class="btn btn--primary btn--lg" data-donate data-donate-location="support_steps">
+            체리에서 안전하게 후원하기 <span class="btn__ext" aria-hidden="true">↗</span>
+          </a>
+        </div>
+        <p class="ext-note">후원 신청과 결제는 외부 사이트인 체리 기부 플랫폼에서 진행됩니다.</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- ===================================================== 자원봉사 -->
+  <section class="section section--cream" id="volunteer" aria-labelledby="vol-t">
+    <div class="wrap wrap--narrow">
+      <div class="sec-head">
+        <span class="eyebrow">자원봉사</span>
+        <h2 class="sec-head__title" id="vol-t">아이들 곁에서 함께해 주세요</h2>
+      </div>
+      <div class="panel">
+        <p class="prose prose--lead" style="color:var(--c-ink-70)">
+          위드프렌즈는 학습 지원, 문화 체험, 캠프 활동을 지역사회와 함께 진행해 왔습니다.
+          자원봉사에 참여를 원하시면 아래 연락처로 문의해 주세요.
+        </p>
+        <div class="notice-box" style="margin-top:1.25rem">
+          <span class="notice-box__icon" aria-hidden="true">!</span>
+          <span>
+            모집 분야, 모집 시기, 신청 서식 등 세부 안내는 공개된 자료가 확인되지 않아
+            <strong>정보 준비 중</strong>입니다. 우선 전화나 이메일로 문의해 주시면 안내해 드립니다.
+          </span>
+        </div>
+        <div class="card__foot" style="margin-top:1.25rem" id="vol-contact"></div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ============================================= 기관 및 기업 협력 -->
+  <section class="section section--white" id="partner" aria-labelledby="ptn-t">
+    <div class="wrap wrap--narrow">
+      <div class="sec-head">
+        <span class="eyebrow eyebrow--green">기관 및 기업 협력</span>
+        <h2 class="sec-head__title" id="ptn-t">지역 안전망을 함께 만듭니다</h2>
+      </div>
+      <div class="panel">
+        <p class="prose prose--lead" style="color:var(--c-ink-70)">
+          위드프렌즈는 학교, 관청, 민간 기업이 협력하여 마을 만들기, 협동조합, 사회적 기업 등
+          사회 통합 안전망을 구축함으로 지역사회 내에서 아동․청소년이 안전하게 자랄 수 있도록 돕습니다.
+        </p>
+        <p class="prose" style="color:var(--c-ink-70);margin-top:1rem">
+          그동안 생명의 전화, 부천대학교, 서울신학대학교, 지역 사업체 등과 협약을 맺고 함께해 왔습니다.
+          협력을 원하시는 기관·기업은 아래로 연락해 주세요.
+        </p>
+        <div class="card__foot" style="margin-top:1.25rem" id="ptn-contact"></div>
+        <p class="ext-note">협력 제안 서식과 담당 부서 안내는 준비 중입니다.</p>
+      </div>
+    </div>
+  </section>
+</main>
+
+<footer class="site-footer" id="site-footer"></footer>
+
+<script src="data/site.js"></script>
+<script src="data/centers.js"></script>
+<script src="data/stories.js"></script>
+<script>
+window.wfPageInit = function () {
+  var a = WF_ORG.bankAccount;
+  var full = a.bank + " " + a.number;
+  document.getElementById("account-num").textContent = full;
+  document.getElementById("account-holder").textContent = "예금주 " + a.holder;
+
+  document.getElementById("copy-account").addEventListener("click", function () {
+    var msg = document.getElementById("copy-msg");
+    var done = function () { msg.textContent = "계좌번호를 복사했습니다: " + full; };
+    if (navigator.clipboard && navigator.clipboard.writeText) {
+      navigator.clipboard.writeText(full).then(done, function () {
+        msg.textContent = "복사에 실패했습니다. 계좌번호를 직접 입력해 주세요: " + full;
+      });
+    } else {
+      msg.textContent = "이 브라우저에서는 복사를 지원하지 않습니다. 계좌번호: " + full;
+    }
+  });
+
+  var telHref = "tel:" + WF_ORG.tel.replace(/[^0-9+]/g, "");
+  var st = document.getElementById("support-tel");
+  st.href = telHref; st.innerHTML = wfIcon("phone") + " " + WF_ORG.tel;
+
+  var contactHtml =
+    '<a class="btn btn--green" href="' + telHref + '">' + wfIcon("phone") + " " + WF_ORG.tel + "</a>" +
+    '<a class="btn btn--outline" href="mailto:' + WF_ORG.email + '">' + wfIcon("mail") + " " + WF_ORG.email + "</a>";
+  document.getElementById("vol-contact").innerHTML =
+    (WF_PARTICIPATION.volunteerContact ? "<p>" + WF_PARTICIPATION.volunteerContact + "</p>" : "") + contactHtml;
+  document.getElementById("ptn-contact").innerHTML =
+    (WF_PARTICIPATION.partnerContact ? "<p>" + WF_PARTICIPATION.partnerContact + "</p>" : "") + contactHtml;
+};
+</script>
+<script src="assets/js/site.js"></script>
+</body>
+</html>
