@@ -364,26 +364,20 @@ body.nav-open { overflow: hidden; }
 .footer-info__list span { white-space: nowrap; }
 .footer-legal { margin-top: 1.1rem; display: flex; flex-wrap: wrap; gap: 0.6rem 1.25rem; font-size: var(--fs-xs); }
 .footer-legal a { font-weight: 700; }
-/* 관련 기관 바로가기 (푸터 하단) */
+/* 관련 기관 바로가기 (푸터 하단) — 한 줄 배치 */
 .footer-orgs {
   margin-top: 1.75rem; padding-top: 1.5rem;
   border-top: 1px solid rgba(255,255,255,.14);
-  display: grid; gap: 0.9rem;
 }
-.footer-orgs__row {
-  display: flex; flex-wrap: wrap; align-items: center; gap: 0.6rem 1.1rem;
+.footer-orgs__links {
+  display: flex; flex-wrap: wrap; align-items: stretch; gap: 0.6rem;
 }
-.footer-orgs__label {
-  flex: none; font-size: var(--fs-xs); font-weight: 700;
-  color: rgba(255,255,255,.62); min-width: 9.5rem;
-}
-.footer-orgs__links { display: flex; flex-wrap: wrap; gap: 0.5rem; }
 .footer-orgs a {
-  display: inline-flex; align-items: center; gap: 0.35rem;
-  min-height: 44px; padding: 0.45rem 1.05rem;
-  font-size: var(--fs-xs); font-weight: 700; color: rgba(255,255,255,.9);
+  display: inline-flex; align-items: center; gap: 0.55rem;
+  min-height: 54px; padding: 0.4rem 1rem 0.4rem 0.4rem;
+  font-size: var(--fs-xs); font-weight: 700; color: rgba(255,255,255,.92);
   border: 1px solid rgba(255,255,255,.26); border-radius: var(--r-pill);
-  background: rgba(255,255,255,.04);
+  background: rgba(255,255,255,.05); white-space: nowrap;
   transition: background-color var(--dur) var(--ease), border-color var(--dur) var(--ease),
               color var(--dur) var(--ease), transform var(--dur) var(--ease);
 }
@@ -391,6 +385,21 @@ body.nav-open { overflow: hidden; }
   background: var(--c-white); border-color: var(--c-white);
   color: var(--c-ink); text-decoration: none; transform: translateY(-2px);
 }
+/* 기관 로고는 원본 색을 살리기 위해 흰 바탕 위에 올립니다.
+   로고마다 가로세로 비율이 달라, 높이를 맞추고 너비는 자동으로 둡니다. */
+.footer-orgs__mark {
+  flex: none; height: 38px; min-width: 38px; border-radius: 9px;
+  background: var(--c-white); padding-inline: 8px;
+  display: inline-flex; align-items: center; justify-content: center;
+}
+.footer-orgs__mark img {
+  height: 22px; width: auto; max-width: 104px;
+  object-fit: contain; display: block;
+}
+.footer-orgs__note {
+  margin-top: 0.85rem; font-size: var(--fs-xs); color: rgba(255,255,255,.55);
+}
+
 .footer-copy { margin-top: 1.75rem; font-size: var(--fs-xs); color: rgba(255,255,255,.55); }
 
 /* ==========================================================================
@@ -808,9 +817,11 @@ a.org-leaf:hover { border-color: var(--c-coral); color: var(--c-coral-deep); tra
   .timeline { padding-left: 1.5rem; }
   .timeline__item::before { left: -1.5rem; }
   .blob { display: none; }
-  /* 관련 기관: 좁은 화면에서는 이름표를 윗줄로 */
-  .footer-orgs__row { flex-direction: column; align-items: flex-start; gap: 0.5rem; }
-  .footer-orgs__label { min-width: 0; }
+  /* 관련 기관: 좁은 화면에서는 두 개씩 */
+  .footer-orgs__links { gap: 0.5rem; }
+  .footer-orgs a { padding-right: 0.8rem; font-size: 0.8125rem; }
+  .footer-orgs__mark { height: 34px; min-width: 34px; padding-inline: 7px; }
+  .footer-orgs__mark img { height: 19px; max-width: 88px; }
 }
 
 @media (max-width: 380px) {

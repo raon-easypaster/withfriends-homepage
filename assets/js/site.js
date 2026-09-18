@@ -254,31 +254,30 @@
       return "<div><h3>" + esc(n.label) + "</h3><ul>" + subs + "</ul></div>";
     }).join("");
 
-    /* 기관 바로가기 링크 한 개 */
-    function orgLink(w) {
+    /* 기관 바로가기 — 로고 + 이름, 한 줄로 늘어섭니다. */
+    var orgs = o.orgLinks || [];
+    var orgItems = orgs.map(function (w) {
+      var mark = has(w.logo)
+        ? '<span class="footer-orgs__mark"><img src="' + BASE + esc(w.logo) + '" alt="" loading="lazy"></span>'
+        : "";
       return '<a href="' + esc(w.url) + '" target="_blank" rel="noopener noreferrer">' +
-             esc(w.name) + ' <span aria-hidden="true">↗</span>' +
+             mark + "<span>" + esc(w.name) + "</span>" +
+             '<span aria-hidden="true">↗</span>' +
              '<span class="sr-only">(새 창에서 열림)</span></a>';
-    }
-    var watchdogs = (o.watchdogs || []).map(orgLink).join("");
-    var related = (o.relatedOrgs || []).map(orgLink).join("");
+    }).join("");
 
-    /* 푸터 하단 관련 기관 영역 */
-    var linkBand =
-      '<nav class="footer-orgs" aria-label="관련 기관 바로가기">' +
-        (watchdogs
-          ? '<div class="footer-orgs__row">' +
-              '<span class="footer-orgs__label">공익위반사항 관리감독기관</span>' +
-              '<div class="footer-orgs__links">' + watchdogs + "</div>" +
-            "</div>"
-          : "") +
-        (related
-          ? '<div class="footer-orgs__row">' +
-              '<span class="footer-orgs__label">관련 기관</span>' +
-              '<div class="footer-orgs__links">' + related + "</div>" +
-            "</div>"
-          : "") +
-      "</nav>";
+    var watchNames = orgs.filter(function (w) { return w.watchdog; })
+                         .map(function (w) { return w.name; });
+
+    var linkBand = orgs.length
+      ? '<nav class="footer-orgs" aria-label="관련 기관 바로가기">' +
+          '<div class="footer-orgs__links">' + orgItems + "</div>" +
+          (watchNames.length
+            ? '<p class="footer-orgs__note">' + esc(watchNames.join(" · ")) +
+              "는 공익위반사항 관리감독기관입니다.</p>"
+            : "") +
+        "</nav>"
+      : "";
 
     var sns = o.sns.length
       ? '<div class="footer-legal">' + o.sns.map(function (s) {

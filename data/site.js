@@ -61,17 +61,16 @@ var WF_ORG = {
   },
   /* 법인 소재지 지도 — 기존 '오시는길' 페이지에 쓰이던 구글지도 임베드 주소 */
   mapEmbedUrl: "https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d197.90830696174098!2d126.7991211164129!3d37.47174886846327!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x357b632126e93da9%3A0x347d709ac4f0e56a!2z6rK96riw64-EIOu2gOyynOyLnCDsnYDshLHroZw3NuuyiOq4uCA3OA!5e0!3m2!1sko!2skr!4v1741777528349!5m2!1sko!2skr",
-  /* 공익위반사항 관리감독기관 — 기존 홈페이지 푸터 링크 */
-  watchdogs: [
-    { name: "국세청", url: "https://www.nts.go.kr" },
-    { name: "국민권익위원회", url: "https://www.acrc.go.kr" }
-  ],
-  /* 관련 기관 — 푸터 하단 바로가기.
-     기관을 더하려면 { name, url } 형태로 아래에 추가하세요.
-     (링크는 모두 새 창에서 열립니다) */
-  relatedOrgs: [
-    { name: "경기도", url: "https://www.gg.go.kr" },
-    { name: "부천시", url: "https://www.bucheon.go.kr" }
+  /* 푸터 하단 기관 바로가기 (한 줄로 표시됩니다)
+     - watchdog: true 인 곳은 '공익위반사항 관리감독기관' 입니다.
+     - 기관을 더하려면 { name, url, logo } 형태로 아래에 추가하고
+       로고 파일은 assets/images/orgs/ 폴더에 넣으세요.
+     - 링크는 모두 새 창에서 열립니다. */
+  orgLinks: [
+    { name: "국세청",        url: "https://www.nts.go.kr",      logo: "assets/images/orgs/nts.png",     watchdog: true },
+    { name: "국민권익위원회", url: "https://www.acrc.go.kr",     logo: "assets/images/orgs/acrc.svg",    watchdog: true },
+    { name: "경기도",        url: "https://www.gg.go.kr",       logo: "assets/images/orgs/gg.png" },
+    { name: "부천시",        url: "https://www.bucheon.go.kr",  logo: "assets/images/orgs/bucheon.png" }
   ],
   /* SNS 링크 — 기존 홈페이지에서 확인되지 않음. 주소가 생기면 아래에 추가하세요.
      예) { name: "인스타그램", url: "https://instagram.com/..." } */
